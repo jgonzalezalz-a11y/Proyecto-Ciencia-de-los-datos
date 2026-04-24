@@ -1,3 +1,5 @@
+Primer entrega Proyecto Ciencia de los datos:
+Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
 # 🎓 Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
 
 Este repositorio contiene la implementación inicial (Frontend) de un sistema web diseñado para estimar el estado de contratación (empleabilidad) y el paquete salarial de estudiantes universitarios, basado en su perfil académico y habilidades.
