@@ -2,27 +2,35 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Permite la comunicación con el frontend
+CORS(app)
 
+# --- (Mantén tu función preprocesar_datos exactamente como la tenías) ---
 def preprocesar_datos(datos):
-    """
-    Esta función convierte el JSON del formulario en una lista de 
-    números procesada.
-    """
-    # 1. Mapeos manuales
     dict_tier = {'Tier 1': 1, 'Tier 2': 2, 'Tier 3': 3}
-    # (Asumimos valores por defecto para campos que no están en el formulario básico)
-    
-    # 2. Extraer valores del JSON
+    age = int(datos.get('age', 21))
+    gender = int(datos.get('gender', 1))
     cgpa = float(datos.get('cgpa', 0))
-    coding_score = float(datos.get('codingScore', 0))
+    tier_num = dict_tier.get(datos.get('tier'), 3)
     internships = int(datos.get('internships', 0))
     projects = int(datos.get('projects', 0))
-    tier_num = dict_tier.get(datos.get('tier'), 3)
+    certifications = int(datos.get('certifications', 0))
+    coding_score = float(datos.get('codingScore', 0))
+    aptitude_score = float(datos.get('aptitudeScore', 0))
+    communication_score = float(datos.get('communicationScore', 0))
+    logical_score = float(datos.get('logicalScore', 0))
+    hackathons = int(datos.get('hackathons', 0))
+    github_repos = int(datos.get('githubRepos', 0))
+    linkedin = int(datos.get('linkedin', 0))
+    mock_interview = float(datos.get('mockInterview', 0))
+    attendance = float(datos.get('attendance', 0))
+    backlogs = int(datos.get('backlogs', 0))
+    extracurricular = float(datos.get('extracurricular', 0))
+    leadership = float(datos.get('leadership', 0))
+    volunteer = int(datos.get('volunteer', 0))
+    study_hours = int(datos.get('studyHours', 0))
+    
     branch_seleccionada = datos.get('branch')
 
-    # 3. One-Hot Encoding manual para 'branch' (Las 6 columnas de especialidad)
-    # Inicializamos todas en 0
     branch_CSE = 1 if branch_seleccionada == 'CSE' else 0
     branch_Civil = 1 if branch_seleccionada == 'Civil' else 0
     branch_ECE = 1 if branch_seleccionada == 'ECE' else 0
@@ -30,68 +38,36 @@ def preprocesar_datos(datos):
     branch_IT = 1 if branch_seleccionada == 'IT' else 0
     branch_Mechanical = 1 if branch_seleccionada == 'Mechanical' else 0
 
-    # 4. Crear el vector de características (Feature Vector)
-    # NOTA: Valores 'quemados' (0 o promedios) para las variables 
-    # que están en el dataset pero no en el formulario actual (como age, aptitude_score, etc.)
-    # El orden debe ser IDENTICO al de de df.columns
     features = [
-        21,          # age (promedio)
-        1,           # gender (1=Male, 0=Female)
-        cgpa,        # cgpa
-        tier_num,    # college_tier
-        internships, # internships_count
-        projects,    # projects_count
-        2,           # certifications_count (default)
-        coding_score,# coding_skill_score
-        70,          # aptitude_score (default)
-        70,          # communication_skill_score (default)
-        70,          # logical_reasoning_score (default)
-        1,           # hackathons_participated (default)
-        4,           # github_repos (default)
-        500,         # linkedin_connections (default)
-        coding_score,# mock_interview_score (usamos coding_score como proxy)
-        85,          # attendance_percentage (default)
-        0,           # backlogs
-        60,          # extracurricular_score
-        55,          # leadership_score
-        1,           # volunteer_experience
-        4,           # study_hours_per_day
-        # Las 6 columnas de branch (dummies)
+        age, gender, cgpa, tier_num, internships, projects, certifications,
+        coding_score, aptitude_score, communication_score, logical_score,
+        hackathons, github_repos, linkedin, mock_interview, attendance,
+        backlogs, extracurricular, leadership, volunteer, study_hours,
         branch_CSE, branch_Civil, branch_ECE, branch_EEE, branch_IT, branch_Mechanical
     ]
-    
     return features
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # A. Recibir datos
-        datos_recibidos = request.get_json()
+        # 1. Recibir los datos del frontend
+        datos_entrada = request.get_json()
         
-        # B. Preprocesar (Transformar a números)
-        vector_final = preprocesar_datos(datos_recibidos)
-        
-        # C. Lógica de Predicción (Simulada para esta entrega)
-        # En la Entrega 3, aquí se usará: modelo.predict([vector_final])
-        es_contratado = False
-        if vector_final[2] > 7.0 and vector_final[7] > 65: # Si CGPA > 7 y Coding > 65
-            es_contratado = True
-        
-        salario_estimado = 0
-        if es_contratado:
-            # Fórmula basada en los hallazgos de correlación
-            salario_estimado = (vector_final[2] * 1.2) + (vector_final[4] * 0.5) + (vector_final[7] * 0.05)
+        # 2. Preprocesarlos (Convertirlos al vector numérico)
+        vector_caracteristicas = preprocesar_datos(datos_entrada)
 
-        # D. Respuesta
+        # 3. ELIMINAMOS LA LÓGICA FALSA. 
+        # AHORA SOLO CONFIRMAMOS QUE EL BACKEND RECIBIÓ Y PROCESÓ LOS DATOS.
         return jsonify({
             "status": "success",
-            "resultado_contratacion": es_contratado,
-            "resultado_salario": round(salario_estimado, 2),
-            "vector_procesado": vector_final # Útil para depurar
-        })
+            "mensaje": "Conexión Frontend-Backend exitosa.",
+            "longitud_vector": len(vector_caracteristicas),
+            "vector": vector_caracteristicas
+        }), 200
 
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 400
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
