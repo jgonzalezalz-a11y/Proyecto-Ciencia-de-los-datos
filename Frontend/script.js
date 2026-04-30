@@ -6,13 +6,34 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
 });
 
 function realizarPrediccion() {
-    // 1. Capturar los valores que el usuario escribió en el HTML
-    var cgpa = document.getElementById("cgpa").value;
-    var codingScore = document.getElementById("codingScore").value;
-    var internships = document.getElementById("internships").value;
+    // 1. Capturar TODOS los valores que el usuario escribió en el nuevo HTML
+    // Perfil y Académico
+    var age = document.getElementById("age").value;
+    var gender = document.getElementById("gender").value;
     var tier = document.getElementById("collegeTier").value;
     var branch = document.getElementById("branch").value;
+    var cgpa = document.getElementById("cgpa").value;
+    var attendance = document.getElementById("attendance").value;
+    var backlogs = document.getElementById("backlogs").value;
+    var studyHours = document.getElementById("studyHours").value;
+    
+    // Habilidades
+    var codingScore = document.getElementById("codingScore").value;
+    var aptitudeScore = document.getElementById("aptitudeScore").value;
+    var communicationScore = document.getElementById("communicationScore").value;
+    var logicalScore = document.getElementById("logicalScore").value;
+    var mockInterview = document.getElementById("mockInterview").value;
+    
+    // Experiencia y Extra
+    var internships = document.getElementById("internships").value;
     var projects = document.getElementById("projects").value;
+    var certifications = document.getElementById("certifications").value;
+    var hackathons = document.getElementById("hackathons").value;
+    var githubRepos = document.getElementById("githubRepos").value;
+    var linkedin = document.getElementById("linkedin").value;
+    var extracurricular = document.getElementById("extracurricular").value;
+    var leadership = document.getElementById("leadership").value;
+    var volunteer = document.getElementById("volunteer").value;
     
     // 2. Definir la ruta hacia tu backend en Python
     var endpoint = "http://127.0.0.1:5000/predict";
@@ -24,47 +45,55 @@ function realizarPrediccion() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            cgpa: cgpa,
-            codingScore: codingScore,
-            internships: internships,
+            age: age,
+            gender: gender,
             tier: tier,
             branch: branch,
-            projects: projects
+            cgpa: cgpa,
+            attendance: attendance,
+            backlogs: backlogs,
+            studyHours: studyHours,
+            codingScore: codingScore,
+            aptitudeScore: aptitudeScore,
+            communicationScore: communicationScore,
+            logicalScore: logicalScore,
+            mockInterview: mockInterview,
+            internships: internships,
+            projects: projects,
+            certifications: certifications,
+            hackathons: hackathons,
+            githubRepos: githubRepos,
+            linkedin: linkedin,
+            extracurricular: extracurricular,
+            leadership: leadership,
+            volunteer: volunteer
         })
     })
-    .then(function(response) {
+  .then(function(response) {
         return response.json();
     })
     .then(function(data) {
-        // 4. Guardar el resultado en la variable global
-        ultimaPrediccion = {
-            cgpaIngresado: cgpa,
-            estadoFinal: data.resultado_contratacion,
-            salarioFinal: data.resultado_salario,
-            fecha: new Date().toLocaleDateString()
-        };
-
-        // 5. Mostrar los resultados en la pantalla usando las clases de Bootstrap
+        // Mostrar los resultados en la pantalla
         var resultSection = document.getElementById('resultSection');
         var statusEl = document.getElementById('predictionStatus');
         var salaryEl = document.getElementById('predictionSalary');
 
         resultSection.style.display = 'block';
-        resultSection.className = 'result-section alert text-center'; 
-
-        // Evaluamos la respuesta que nos mandó Flask (data.resultado_contratacion)
-        if (data.resultado_contratacion === true) {
-            resultSection.classList.add('alert-success');
-            statusEl.innerText = "¡Estudiante Contratado (Placed)! 🎉";
-            salaryEl.innerText = "Paquete Salarial Estimado: " + data.resultado_salario + " LPA";
+        
+        if (data.status === "success") {
+            // Un cuadro gris claro muy neutral, solo mostrando el dato técnico
+            resultSection.className = 'result-section alert alert-light border text-center shadow-sm'; 
+            statusEl.innerText = "Preprocesamiento completado";
+            // Imprimimos el vector real que devolvió Python
+            salaryEl.innerHTML = "<strong>Vector resultante listo para el modelo:</strong><br>[" + data.vector.join(", ") + "]";
         } else {
-            resultSection.classList.add('alert-danger');
-            statusEl.innerText = "Estudiante No Contratado (Not Placed) 😔";
-            salaryEl.innerText = "Recomendamos mejorar las habilidades de programación y buscar proyectos adicionales.";
+            resultSection.className = 'result-section alert alert-danger text-center shadow-sm'; 
+            statusEl.innerText = "Error en el servidor";
+            salaryEl.innerText = "Hubo un problema al procesar los datos.";
         }
     })
     .catch(function(error){
         console.log("Error en la conexión con el servidor: ", error);
-        alert("Asegúrate de que el backend (app.py) esté corriendo.");
+        alert("Asegúrate de que el backend (app.py) esté corriendo en la terminal.");
     });
 }
