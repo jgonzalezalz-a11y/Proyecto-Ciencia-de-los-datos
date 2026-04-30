@@ -1,11 +1,29 @@
-Primer entrega Proyecto Ciencia de los datos:
+Primera y segunda entrega Proyecto Ciencia de los datos:
 Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
-# 🎓 Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
+# Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
 
+Este repositorio contiene la segunda fase del desarrollo de un sistema web integral diseñado para estimar el estado de contratación y el paquete salarial de estudiantes universitarios. 
+
+En esta **Entrega 2**, el enfoque principal ha sido la construcción de la arquitectura Cliente-Servidor, la canalización de datos (pipeline) y el preprocesamiento de las variables.
+
+---
+
+## 📂 1. Código Fuente
+
+El proyecto sigue una arquitectura desacoplada separando el Frontend del Backend, lo que permite escalabilidad y un flujo de datos limpio:
+
+```text
+/
+├── 📄 app.py          # Backend (Python/Flask): Motor de preprocesamiento y API REST.
+├── 📄 index.html      # Frontend: Interfaz de usuario con 22 variables de entrada.
+├── 📄 script.js       # Lógica del cliente: Consumo de la API mediante fetch().
+├── 📄 styles.css      # Estilos personalizados (complementarios a Bootstrap).
+├── 📄 README.md       # Documentación del proyecto.
+└── 📊 student_placement_prediction_dataset_2026.csv # Dataset original (Entrega 1).
 Este repositorio contiene la implementación inicial (Frontend) de un sistema web diseñado para estimar el estado de contratación (empleabilidad) y el paquete salarial de estudiantes universitarios, basado en su perfil académico y habilidades.
 
 
- 📋 Resumen del Proyecto y Requerimientos
+ Resumen del Proyecto y Requerimientos
 
 Este proyecto nace como respuesta a la necesidad de construir una interfaz intuitiva para un modelo de Machine Learning, utilizando el conjunto de datos `student_placement_prediction_dataset_2026.csv`. 
 
@@ -30,13 +48,40 @@ Se construyó una interfaz de usuario limpia, responsiva y fácil de usar, separ
 * **CSS3 & Bootstrap 5:** Estilos responsivos y diseño de tarjetas (`styles.css` y CDN de Bootstrap).
 * **JavaScript (Vanilla):** Captura de eventos del formulario y manipulación del DOM (`script.js`).
 
-### 4. Formulario y Lógica de Predicción (Desacoplada)
-Actualmente, el frontend cuenta con un formulario que captura las variables más relevantes. 
 
-## 🛠️ Estructura de Archivos
+ 2. Documentación del Sistema
+Implementación del Backend con Flask y Creación de API
+Se implementó un servidor local utilizando el micro-framework Flask de Python. Se integró la librería flask-cors para permitir el intercambio de recursos de origen cruzado (CORS), asegurando que el Frontend (HTML) pueda comunicarse de manera segura con el servidor.
 
-```text
-/
-├── index.html   # Estructura principal de la página y formulario.
-├── styles.css   # Estilos personalizados (complementarios a Bootstrap).
-└── script.js    # Lógica de simulación de predicción y manejo del DOM.
+Se expuso un endpoint RESTful único:
+
+URL: http://127.0.0.1:5000/predict
+
+Método HTTP: POST
+
+Función: Recibir el objeto JSON crudo desde el cliente y devolver el vector matemático transformado.
+
+Conexión entre Frontend y Backend
+La interfaz web (index.html) captura 22 variables que abarcan el perfil personal, académico, habilidades técnicas y experiencia extracurricular del estudiante (incluyendo métricas como Hackathons y Repositorios de GitHub).
+
+Al enviar el formulario, script.js intercepta el evento, construye un payload en formato JSON y realiza una petición asíncrona (fetch) al endpoint /predict. Una vez que el Backend responde, la interfaz actualiza el DOM de forma dinámica mostrando el vector resultante sin recargar la página.
+🚀 3. Instrucciones de Ejecución
+Para desplegar la infraestructura de procesamiento localmente, siga estos pasos:
+
+Prerrequisitos
+Python 3.x instalado en el sistema.
+
+Navegador web moderno.
+
+Despliegue
+Clonar el repositorio y abrir una terminal en el directorio raíz del proyecto.
+
+Instalar dependencias del servidor:
+
+Bash
+pip install flask flask-cors
+Iniciar el motor de Backend:
+
+Bash
+python app.py
+El servidor indicará que está en ejecución en http://127.0.0.1:5000.
