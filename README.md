@@ -2,7 +2,7 @@ Primera y segunda entrega Proyecto Ciencia de los datos:
 Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
 # Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
 
-Este repositorio contiene la primer y segunda fase del desarrollo de un sistema web integral diseñado para estimar el estado de contratación y el paquete salarial de estudiantes universitarios. 
+Este repositorio contiene la primer y segunda fase del desarrollo de un sistema web integral diseñado para estimar el estado de contratación y el paquete salarial de estudiantes universitarios, con base en un dataset ruso extraído de Kaggle.com
 
 En esta **Entrega 2**, el enfoque principal ha sido la construcción de la arquitectura Cliente-Servidor, la canalización de datos y el preprocesamiento de las variables.
 
