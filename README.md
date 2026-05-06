@@ -1,8 +1,5 @@
-# Proyecto Ciencia de los datos
+# Proyecto Ciencia de los datos: Modelo predictivo de empleabilidad estudiantil basado en variables académicas y laborales
 Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
-# Modelo predictivo de empleabilidad estudiantil basado en variables académicas y laborales
-
-# Proyecto de Análisis de Empleabilidad de Estudiantes
 
 ## Descripción del Proyecto
 Este proyecto tiene como objetivo analizar los factores que influyen en la empleabilidad de estudiantes universitarios mediante técnicas de análisis de datos. A partir de un enfoque exploratorio, se busca identificar qué variables tienen mayor relación con la probabilidad de que un estudiante sea contratado, permitiendo entender mejor las dinámicas actuales del mercado laboral y la importancia de diferentes competencias en el proceso de selección.
