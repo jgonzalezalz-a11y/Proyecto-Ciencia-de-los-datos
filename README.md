@@ -34,10 +34,10 @@ Este proyecto tiene como objetivo analizar los factores que influyen en la emple
          - Matplotlib
 
 
-2. ## Implementación del código fuente.
-   1. # FrontEnd
+2. # Implementación del código fuente.
+   1. ## FrontEnd
       
-   2. # BackEnd
+   2. ## BackEnd
 
 
 
