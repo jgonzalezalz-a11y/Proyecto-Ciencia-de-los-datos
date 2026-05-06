@@ -1,6 +1,6 @@
-Proyecto Ciencia de los datos:
+# Proyecto Ciencia de los datos
 Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
-# Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
+# Modelo predictivo de empleabilidad estudiantil basado en variables académicas y laborales
 
 # Proyecto de Análisis de Empleabilidad de Estudiantes
 
