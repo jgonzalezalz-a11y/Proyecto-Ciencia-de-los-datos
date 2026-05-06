@@ -13,7 +13,7 @@
         <div class="col-lg-10">
             <div class="card card-custom p-4 p-md-5">
                 <h2 class="text-center mb-2">Sistema Predictivo de Colocación</h2>
-                <p class="text-muted text-center mb-5">Ingresa todas las métricas del estudiante según el dataset preprocesado.</p>
+                <p class="text-muted text-center mb-5">Ingresa la información del estudiante para estimar su probabilidad de empleabilidad</p>
                 
                 <form id="predictionForm">
                     <!-- SECCIÓN 1: Perfil Personal y Académico -->
@@ -21,26 +21,26 @@
                     <div class="row mb-4">
                         <div class="col-md-3 mb-3">
                             <label for="age" class="form-label">Edad</label>
-                            <input type="number" class="form-control" id="age" required value="21">
+                            <input type="number" class="form-control" id="age" name="age" required value="21" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="gender" class="form-label">Género</label>
-                            <select class="form-select" id="gender" required>
+                            <select class="form-select" id="gender" name="gender">
                                 <option value="1">Masculino</option>
                                 <option value="0">Femenino</option>
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="collegeTier" class="form-label">Nivel de Universidad</label>
-                            <select class="form-select" id="collegeTier" required>
-                                <option value="Tier 1">Tier 1</option>
-                                <option value="Tier 2">Tier 2</option>
-                                <option value="Tier 3">Tier 3</option>
+                            <label for="college_tier" class="form-label">Nivel de Universidad</label>
+                            <select class="form-select" id="college_tier" name="college_tier">
+                                <option value="1">Tier 1</option>
+                                <option value="2">Tier 2</option>
+                                <option value="3">Tier 3</option>
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="branch" class="form-label">Rama / Carrera</label>
-                            <select class="form-select" id="branch" required>
+                            <select class="form-select" id="branch" name="branch" required>
                                 <option value="CSE">CSE</option>
                                 <option value="IT">IT</option>
                                 <option value="EEE">EEE</option>
@@ -51,19 +51,19 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="cgpa" class="form-label">Promedio (CGPA)</label>
-                            <input type="number" step="0.01" class="form-control" id="cgpa" required placeholder="0.0 - 10.0">
+                            <input type="number" step="0.01" class="form-control" id="cgpa" name="cgpa" required placeholder="0.0 - 10.0" min="0" max="10">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="attendance" class="form-label">% Asistencia</label>
-                            <input type="number" class="form-control" id="attendance" required placeholder="Ej. 85">
+                            <label for="attendance_percentage" class="form-label">% Asistencia</label>
+                            <input type="number" class="form-control" id="attendance_percentage" name="attendance_percentage" required placeholder="Ej. 85" min="0" max="100">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="backlogs" class="form-label">Materias Reprobadas</label>
-                            <input type="number" class="form-control" id="backlogs" required value="0">
+                            <input type="number" class="form-control" id="backlogs" name="backlogs" value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="studyHours" class="form-label">Horas Estudio/Día</label>
-                            <input type="number" class="form-control" id="studyHours" required placeholder="Ej. 4">
+                            <label for="study_hours_per_day" class="form-label">Horas Estudio/Día</label>
+                            <input type="number" class="form-control" id="study_hours_per_day" name="study_hours_per_day" required placeholder="Ej. 4" min="0" max="24">
                         </div>
                     </div>
 
@@ -71,24 +71,24 @@
                     <h4 class="section-title">Métricas de Habilidades (0 - 100)</h4>
                     <div class="row mb-4">
                         <div class="col-md-4 mb-3">
-                            <label for="codingScore" class="form-label">Puntaje Programación</label>
-                            <input type="number" class="form-control" id="codingScore" required>
+                            <label for="coding_skill_score" class="form-label">Puntaje Programación</label>
+                            <input type="number" class="form-control" id="coding_skill_score" name="coding_skill_score" min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="aptitudeScore" class="form-label">Puntaje Aptitud</label>
-                            <input type="number" class="form-control" id="aptitudeScore" required>
+                            <label for="aptitude_score" class="form-label">Puntaje Aptitud</label>
+                            <input type="number" class="form-control" id="aptitude_score" name="aptitude_score" required min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="communicationScore" class="form-label">Habilidades Comunicativas</label>
-                            <input type="number" class="form-control" id="communicationScore" required>
+                            <label for="communication_skill_score" class="form-label">Habilidades Comunicativas</label>
+                            <input type="number" class="form-control" id="communication_skill_score" name="communication_skill_score" required min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="logicalScore" class="form-label">Razonamiento Lógico</label>
-                            <input type="number" class="form-control" id="logicalScore" required>
+                            <label for="logical_reasoning_score" class="form-label">Razonamiento Lógico</label>
+                            <input type="number" class="form-control" id="logical_reasoning_score" name="logical_reasoning_score" required min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="mockInterview" class="form-label">Simulacro Entrevista</label>
-                            <input type="number" class="form-control" id="mockInterview" required>
+                            <label for="mock_interview_score" class="form-label">Simulacro Entrevista</label>
+                            <input type="number" class="form-control" id="mock_interview_score" name="mock_interview_score" required min="0" max="100">
                         </div>
                     </div>
 
@@ -96,40 +96,40 @@
                     <h4 class="section-title">Experiencia y Actividades Extra</h4>
                     <div class="row mb-4">
                         <div class="col-md-3 mb-3">
-                            <label for="internships" class="form-label">Pasantías</label>
-                            <input type="number" class="form-control" id="internships" required value="0">
+                            <label for="internships_count" class="form-label">Pasantías</label>
+                            <input type="number" class="form-control" id="internships_count"  name="internships_count" value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="projects" class="form-label">Proyectos</label>
-                            <input type="number" class="form-control" id="projects" required value="0">
+                            <label for="projects_count" class="form-label">Proyectos</label>
+                            <input type="number" class="form-control" id="projects_count" name="projects_count" required value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="certifications" class="form-label">Certificaciones</label>
-                            <input type="number" class="form-control" id="certifications" required value="0">
+                            <label for="certifications_count" class="form-label">Certificaciones</label>
+                            <input type="number" class="form-control" id="certifications_count" name="certifications_count" required value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="hackathons" class="form-label">Hackathons</label>
-                            <input type="number" class="form-control" id="hackathons" required value="0">
+                            <label for="hackathons_participated" class="form-label">Hackathons</label>
+                            <input type="number" class="form-control" id="hackathons_participated" name="hackathons_participated" value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="githubRepos" class="form-label">Repositorios GitHub</label>
-                            <input type="number" class="form-control" id="githubRepos" required value="0">
+                            <label for="github_repos" class="form-label">Repositorios GitHub</label>
+                            <input type="number" class="form-control" id="github_repos" name="github_repos" required value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="linkedin" class="form-label">Contactos LinkedIn</label>
-                            <input type="number" class="form-control" id="linkedin" required placeholder="Ej. 500">
+                            <label for="linkedin_connections" class="form-label">Contactos LinkedIn</label>
+                            <input type="number" class="form-control" id="linkedin_connections" name="linkedin_connections" placeholder="Ej. 500" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="extracurricular" class="form-label">Puntaje Extracurricular</label>
-                            <input type="number" class="form-control" id="extracurricular" required>
+                            <label for="extracurricular_score" class="form-label">Puntaje Extracurricular (0-100)</label>
+                            <input type="number" class="form-control" id="extracurricular_score" name="extracurricular_score" required min="0" max="100">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="leadership" class="form-label">Puntaje Liderazgo</label>
-                            <input type="number" class="form-control" id="leadership" required>
+                            <label for="leadership_score" class="form-label">Puntaje Liderazgo (0-100)</label>
+                            <input type="number" class="form-control" id="leadership_score" name="leadership_score" required min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="volunteer" class="form-label">Voluntariado</label>
-                            <select class="form-select" id="volunteer" required>
+                            <label for="volunteer_experience" class="form-label">Voluntariado</label>
+                            <select class="form-select" id="volunteer_experience" name="volunteer_experience" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
                             </select>
@@ -137,7 +137,7 @@
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Procesar Vector Completo y Predecir</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Predecir</button>
                     </div>
                 </form>
                 
@@ -149,72 +149,8 @@
         </div>
     </div>
 </div>
-<script src="script.js"></script>
-</body>
-</html>
-                <form id="predictionForm">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="cgpa" class="form-label">Promedio Académico (CGPA)</label>
-                            <input type="number" step="0.01" class="form-control" id="cgpa" required placeholder="Ej. 8.5">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="codingScore" class="form-label">Puntaje en Programación (0-100)</label>
-                            <input type="number" step="0.01" class="form-control" id="codingScore" required placeholder="Ej. 85.5">
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="internships" class="form-label">Número de Pasantías</label>
-                            <input type="number" class="form-control" id="internships" required placeholder="Ej. 2">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="collegeTier" class="form-label">Nivel de Universidad</label>
-                            <select class="form-select" id="collegeTier" required>
-                                <option value="Tier 1">Tier 1</option>
-                                <option value="Tier 2">Tier 2</option>
-                                <option value="Tier 3">Tier 3</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="branch" class="form-label">Rama / Carrera</label>
-                            <select class="form-select" id="branch" required>
-                                <option value="CSE">Ciencias de la Computación (CSE)</option>
-                                <option value="IT">Tecnología de la Información (IT)</option>
-                                <option value="EEE">Ingeniería Eléctrica/Electrónica (EEE)</option>
-                                <option value="ECE">Electrónica y comunicaciones (ECE)</option>
-                                <option value="Civil">Ingeniería Civil</option>
-                                <option value="Mechanical">Ingeniería Mecánica</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="projects" class="form-label">Número de Proyectos</label>
-                            <input type="number" class="form-control" id="projects" required placeholder="Ej. 4">
-                        </div>
-                    </div>
-
-                    <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Realizar Predicción</button>
-                    </div>
-                </form>
-
-                <div id="resultSection" class="result-section alert text-center">
-                    <h4 id="predictionStatus" class="mb-2"></h4>
-                    <p id="predictionSalary" class="mb-0 fs-5"></p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
+<script src="Script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="script.js"></script>
 
 </body>
 </html>
