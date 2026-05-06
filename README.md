@@ -1,87 +1,46 @@
-Primera y segunda entrega Proyecto Ciencia de los datos:
+Proyecto Ciencia de los datos:
 Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.751.386)
 # Modelo Predictivo de Empleabilidad Estudiantil basado en Variables Académicas y Laborales
 
-Este repositorio contiene la primer y segunda fase del desarrollo de un sistema web integral diseñado para estimar el estado de contratación y el paquete salarial de estudiantes universitarios, con base en un dataset ruso extraído de Kaggle.com
+# Proyecto de Análisis de Empleabilidad de Estudiantes
 
-En esta **Entrega 2**, el enfoque principal ha sido la construcción de la arquitectura Cliente-Servidor, la canalización de datos y el preprocesamiento de las variables.
+## Descripción del Proyecto
+Este proyecto tiene como objetivo analizar los factores que influyen en la empleabilidad de estudiantes universitarios mediante técnicas de análisis de datos. A partir de un enfoque exploratorio, se busca identificar qué variables tienen mayor relación con la probabilidad de que un estudiante sea contratado, permitiendo entender mejor las dinámicas actuales del mercado laboral y la importancia de diferentes competencias en el proceso de selección.
 
----
+1.
+## Dataset
+El conjunto de datos fue obtenido de la plataforma Kaggle y contiene 100.000 registros con 26 variables relacionadas con estudiantes universitarios. Estas variables incluyen información demográfica, académica y de desarrollo profesional, tales como edad, género, promedio académico (CGPA), número de pasantías, proyectos realizados, certificaciones, habilidades técnicas, razonamiento lógico, comunicación, entre otras. Además, se incluye una variable objetivo denominada `placement_status`, que indica si el estudiante fue colocado laboralmente o no.
 
-## 📂 1. Código Fuente
+## Preprocesamiento de Datos
+Para garantizar la calidad y utilidad del dataset, se llevó a cabo un proceso de preprocesamiento estructurado. Inicialmente, se realizó una exploración general para identificar tipos de datos, distribución de valores y verificar la ausencia de datos nulos, lo cual permitió confirmar la integridad del conjunto de datos. Posteriormente, se eliminaron variables consideradas irrelevantes para el análisis, como identificadores únicos y variables que no aportaban valor predictivo al objetivo del estudio.
 
-El proyecto sigue una arquitectura desacoplada separando el Frontend del Backend, lo que permite escalabilidad y un flujo de datos limpio:
+A continuación, se transformaron las variables categóricas a formato numérico, utilizando codificación binaria para variables como género, experiencia en voluntariado y estado de colocación laboral. Asimismo, se aplicó una codificación ordinal para variables con jerarquía, como el nivel de la institución educativa. Para variables categóricas con múltiples categorías, se utilizó la técnica de One-Hot Encoding, generando nuevas variables binarias que permiten representar cada categoría sin introducir sesgos de orden.
 
-```text
-/
-├── 📄 app.py          # Backend (Python/Flask): Motor de preprocesamiento y API REST.
-├── 📄 index.html      # Frontend: Interfaz de usuario con 22 variables de entrada.
-├── 📄 script.js       # Lógica del cliente: Consumo de la API mediante fetch().
-├── 📄 styles.css      # Estilos personalizados (complementarios a Bootstrap).
-├── 📄 README.md       # Documentación del proyecto.
-└── 📊 student_placement_prediction_dataset_2026.csv # Dataset original (Entrega 1).
-Este repositorio contiene la implementación inicial (Frontend) de un sistema web diseñado para estimar el estado de contratación (empleabilidad) y el paquete salarial de estudiantes universitarios, basado en su perfil académico y habilidades.
+Finalmente, se realizó una conversión general de los datos a formato numérico, obteniendo un dataset completamente estructurado y adecuado para su análisis y posterior aplicación en modelos de machine learning.
 
+## Análisis Exploratorio de Datos
+En esta etapa se realizó un análisis de correlación entre las variables del dataset con el fin de identificar relaciones relevantes y posibles patrones. Se construyó una matriz de correlación que permitió evaluar la intensidad y dirección de la relación entre cada variable y la variable objetivo.
 
- Resumen del Proyecto y Requerimientos
+Adicionalmente, se desarrolló un ranking de variables basado en su correlación con `placement_status`, lo que permitió identificar de manera ordenada cuáles factores tienen mayor influencia en la empleabilidad. Este análisis evidenció que variables relacionadas con la experiencia práctica, como el número de pasantías y proyectos realizados, así como habilidades técnicas y desempeño en entrevistas simuladas, presentan una mayor relación con la colocación laboral.
 
-Este proyecto nace como respuesta a la necesidad de construir una interfaz intuitiva para un modelo de Machine Learning, utilizando el conjunto de datos `student_placement_prediction_dataset_2026.csv`. 
+## Resultados y Conclusiones
+Los resultados obtenidos indican que la empleabilidad de los estudiantes no depende exclusivamente del rendimiento académico, sino que está fuertemente influenciada por factores relacionados con la experiencia práctica y el desarrollo de habilidades técnicas. En particular, variables como pasantías, proyectos y habilidades de programación destacan como los principales determinantes en la probabilidad de conseguir empleo.
 
-A continuación, se detalla cómo se abordaron los requerimientos del proyecto:
+Asimismo, se observó que habilidades cognitivas y blandas, como el razonamiento lógico y la comunicación, tienen un impacto positivo, aunque en menor medida. Por otro lado, el promedio académico presenta una relación más débil, lo que sugiere que, en el contexto analizado, las empresas valoran en mayor medida las competencias aplicadas y la experiencia real del estudiante.
 
-### 1. Descripción del Dataset
-El proyecto se basa en el análisis de un conjunto de datos que detalla el perfil de los estudiantes.
-* **Fuente:** `student_placement_prediction_dataset_2026.csv`, es de acceso libre desde la plataforma Kaggle.
-* **Variables Predictoras (Features):** Incluye datos académicos y extracurriculares como `cgpa` (promedio), `coding_skill_score`, número de pasantías (`internships_count`), nivel de la universidad (`college_tier`), carrera (`branch`), entre otras.
-* **Variables Objetivo (Targets):** * `placement_status`: Clasificación (Contratado / No Contratado).
-  * `salary_package_lpa`: Regresión (Estimación del salario en LPA).
+## Tecnologías Utilizadas
+- Python
+- Pandas
+- NumPy
+- Seaborn
+- Matplotlib
 
-### 2. Análisis Preliminar de Datos (EDA)
-Antes del desarrollo del modelo (Backend), se planteó la siguiente estrategia de visualización para entender los datos:
-* **Distribución de Clases:** Gráficos de barras para evaluar el balance de `placement_status`.
-* **Mapas de Calor (Heatmaps):** Para identificar las correlaciones más fuertes con el salario (ej. CGPA y habilidades de programación).
-* **Análisis Bivariado:** Uso de Boxplots y Scatter plots para cruzar variables clave (como puntajes de aptitud) contra el estado de contratación.
+2.
 
-### 3. Implementación del Frontend
-Se construyó una interfaz de usuario limpia, responsiva y fácil de usar, separando las responsabilidades en distintos archivos para mantener las buenas prácticas:
-* **HTML5:** Estructura semántica (`index.html`).
-* **CSS3 & Bootstrap 5:** Estilos responsivos y diseño de tarjetas (`styles.css` y CDN de Bootstrap).
-* **JavaScript (Vanilla):** Captura de eventos del formulario y manipulación del DOM (`script.js`).
+## Implementación del código fuente.
+## FrontEnd
 
 
- 2. Documentación del Sistema
-Implementación del Backend con Flask y Creación de API
-Se implementó un servidor local utilizando el micro-framework Flask de Python. Se integró la librería flask-cors para permitir el intercambio de recursos de origen cruzado (CORS), asegurando que el Frontend (HTML) pueda comunicarse de manera segura con el servidor.
+## Backend
 
-Se expuso un endpoint RESTful único:
 
-URL: http://127.0.0.1:5000/predict
-
-Método HTTP: POST
-
-Función: Recibir el objeto JSON crudo desde el cliente y devolver el vector matemático transformado.
-
-Conexión entre Frontend y Backend
-La interfaz web (index.html) captura 22 variables que abarcan el perfil personal, académico, habilidades técnicas y experiencia extracurricular del estudiante (incluyendo métricas como Hackathons y Repositorios de GitHub).
-
-Al enviar el formulario, script.js intercepta el evento, construye un payload en formato JSON y realiza una petición asíncrona (fetch) al endpoint /predict. Una vez que el Backend responde, la interfaz actualiza el DOM de forma dinámica mostrando el vector resultante sin recargar la página.
-🚀 3. Instrucciones de Ejecución
-Para desplegar la infraestructura de procesamiento localmente, siga estos pasos:
-
-Prerrequisitos
-Python 3.x instalado en el sistema.
-
-Navegador web moderno.
-
-Despliegue
-Clonar el repositorio y abrir una terminal en el directorio raíz del proyecto.
-
-Instalar dependencias del servidor:
-
-Bash
-pip install flask flask-cors
-Iniciar el motor de Backend:
-
-Bash
-python app.py
-El servidor indicará que está en ejecución en http://127.0.0.1:5000.
