@@ -6,94 +6,70 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
 });
 
 function realizarPrediccion() {
-    // 1. Capturar TODOS los valores que el usuario escribió en el nuevo HTML
-    // Perfil y Académico
-    var age = document.getElementById("age").value;
-    var gender = document.getElementById("gender").value;
-    var tier = document.getElementById("collegeTier").value;
-    var branch = document.getElementById("branch").value;
-    var cgpa = document.getElementById("cgpa").value;
-    var attendance = document.getElementById("attendance").value;
-    var backlogs = document.getElementById("backlogs").value;
-    var studyHours = document.getElementById("studyHours").value;
-    
-    // Habilidades
-    var codingScore = document.getElementById("codingScore").value;
-    var aptitudeScore = document.getElementById("aptitudeScore").value;
-    var communicationScore = document.getElementById("communicationScore").value;
-    var logicalScore = document.getElementById("logicalScore").value;
-    var mockInterview = document.getElementById("mockInterview").value;
-    
-    // Experiencia y Extra
-    var internships = document.getElementById("internships").value;
-    var projects = document.getElementById("projects").value;
-    var certifications = document.getElementById("certifications").value;
-    var hackathons = document.getElementById("hackathons").value;
-    var githubRepos = document.getElementById("githubRepos").value;
-    var linkedin = document.getElementById("linkedin").value;
-    var extracurricular = document.getElementById("extracurricular").value;
-    var leadership = document.getElementById("leadership").value;
-    var volunteer = document.getElementById("volunteer").value;
-    
-    // 2. Definir la ruta hacia tu backend en Python
-    var endpoint = "http://127.0.0.1:5000/predict";
 
-    // 3. Enviar los datos usando fetch
+    // 🔹 Capturar TODOS los campos (usando los IDs correctos)
+    const data = {
+        age: document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        cgpa: document.getElementById("cgpa").value,
+        college_tier: document.getElementById("college_tier").value,
+        branch: document.getElementById("branch").value,
+        internships_count: document.getElementById("internships_count").value,
+        projects_count: document.getElementById("projects_count").value,
+        certifications_count: document.getElementById("certifications_count").value,
+        coding_skill_score: document.getElementById("coding_skill_score").value,
+        aptitude_score: document.getElementById("aptitude_score").value,
+        communication_skill_score: document.getElementById("communication_skill_score").value,
+        logical_reasoning_score: document.getElementById("logical_reasoning_score").value,
+        hackathons_participated: document.getElementById("hackathons_participated").value,
+        github_repos: document.getElementById("github_repos").value,
+        linkedin_connections: document.getElementById("linkedin_connections").value,
+        mock_interview_score: document.getElementById("mock_interview_score").value,
+        attendance_percentage: document.getElementById("attendance_percentage").value,
+        backlogs: document.getElementById("backlogs").value,
+        extracurricular_score: document.getElementById("extracurricular_score").value,
+        leadership_score: document.getElementById("leadership_score").value,
+        volunteer_experience: document.getElementById("volunteer_experience").value,
+        study_hours_per_day: document.getElementById("study_hours_per_day").value
+    };
+
+    const endpoint = "http://127.0.0.1:5000/predict";
+
     fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-            age: age,
-            gender: gender,
-            tier: tier,
-            branch: branch,
-            cgpa: cgpa,
-            attendance: attendance,
-            backlogs: backlogs,
-            studyHours: studyHours,
-            codingScore: codingScore,
-            aptitudeScore: aptitudeScore,
-            communicationScore: communicationScore,
-            logicalScore: logicalScore,
-            mockInterview: mockInterview,
-            internships: internships,
-            projects: projects,
-            certifications: certifications,
-            hackathons: hackathons,
-            githubRepos: githubRepos,
-            linkedin: linkedin,
-            extracurricular: extracurricular,
-            leadership: leadership,
-            volunteer: volunteer
-        })
+        body: JSON.stringify(data)
     })
-  .then(function(response) {
-        return response.json();
-    })
-    .then(function(data) {
-        // Mostrar los resultados en la pantalla
-        var resultSection = document.getElementById('resultSection');
-        var statusEl = document.getElementById('predictionStatus');
-        var salaryEl = document.getElementById('predictionSalary');
+    .then(res => res.json())
+    .then(data => {
+
+        ultimaPrediccion = {
+            estadoFinal: data.resultado_contratacion,
+            salarioFinal: data.resultado_salario,
+            fecha: new Date().toLocaleDateString()
+        };
+
+        const resultSection = document.getElementById('resultSection');
+        const statusEl = document.getElementById('predictionStatus');
+        const salaryEl = document.getElementById('predictionSalary');
 
         resultSection.style.display = 'block';
-        
-        if (data.status === "success") {
-            // Un cuadro gris claro muy neutral, solo mostrando el dato técnico
-            resultSection.className = 'result-section alert alert-light border text-center shadow-sm'; 
-            statusEl.innerText = "Preprocesamiento completado";
-            // Imprimimos el vector real que devolvió Python
-            salaryEl.innerHTML = "<strong>Vector resultante listo para el modelo:</strong><br>[" + data.vector.join(", ") + "]";
+        resultSection.className = 'result-section alert text-center';
+
+        if (data.resultado_contratacion === true) {
+            resultSection.classList.add('alert-success');
+            statusEl.innerText = "¡Estudiante Contratado (Placed)! 🎉";
+            salaryEl.innerText = "Salario estimado: " + data.resultado_salario;
         } else {
-            resultSection.className = 'result-section alert alert-danger text-center shadow-sm'; 
-            statusEl.innerText = "Error en el servidor";
-            salaryEl.innerText = "Hubo un problema al procesar los datos.";
+            resultSection.classList.add('alert-danger');
+            statusEl.innerText = "No contratado 😔";
+            salaryEl.innerText = "Mejora habilidades técnicas y experiencia.";
         }
     })
-    .catch(function(error){
-        console.log("Error en la conexión con el servidor: ", error);
-        alert("Asegúrate de que el backend (app.py) esté corriendo en la terminal.");
+    .catch(error => {
+        console.error("Error:", error);
+        alert("El backend no está corriendo.");
     });
 }
