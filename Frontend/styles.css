@@ -1,14 +1,75 @@
-
+/* ── ESTILOS GLOBALES DEL SISTEMA ──────────────────────────────── */
 body {
-    background-color: #f8f9fa;
+    background-color: #f3f4f6; /* Un gris sutil un poco más moderno */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Tarjeta contenedora principal */
 .card-custom {
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    border: none;
 }
 
+/* Títulos de las secciones del formulario */
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Ajustes finos para las etiquetas y controles */
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 0.6rem 0.75rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+}
+
+/* Tarjeta especial para el selector del Motor Predictivo */
+.card.bg-light {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px;
+}
+
+/* ── SECCIÓN DE RESULTADOS DINÁMICOS ────────────────────────── */
 .result-section {
-    display: none;
-    margin-top: 20px;
+    display: none; /* Controlado dinámicamente mediante Script.js */
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    border: none;
+    animation: slideDown 0.4s ease-out;
+}
+
+/* Animación sutil de entrada para la respuesta de la API */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
