@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predicción de Empleabilidad | Modelo Completo</title>
+    <title>Predicción de Empleabilidad | Selector Inteligente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,10 +13,28 @@
         <div class="col-lg-10">
             <div class="card card-custom p-4 p-md-5">
                 <h2 class="text-center mb-2">Sistema Predictivo de Colocación</h2>
-                <p class="text-muted text-center mb-5">Ingresa la información del estudiante para estimar su probabilidad de empleabilidad</p>
+                <p class="text-muted text-center mb-4">Ingresa la información del estudiante para estimar su probabilidad de empleabilidad</p>
                 
                 <form id="predictionForm">
-                    <!-- SECCIÓN 1: Perfil Personal y Académico -->
+                    
+                    <div class="card p-3 mb-4 bg-light border-0 shadow-sm">
+                        <h5 class="fw-bold text-primary mb-2">🧠 Configuración del Motor Predictivo</h5>
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <p class="text-muted small mb-md-0">
+                                    Selecciona el algoritmo de Machine Learning optimizado mediante simulación que deseas utilizar para evaluar este perfil.
+                                </p>
+                            </div>
+                            <div class="col-md-5">
+                                <select class="form-select form-select-lg fw-bold border-primary text-primary" id="method" name="method" required>
+                                    <option value="ensemble" selected>Ensemble Híbrido (Recomendado)</option>
+                                    <option value="mlp">Red Neuronal Artificial (MLP)</option>
+                                    <option value="knn">K-Neighbors Classifier (KNN)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <h4 class="section-title">Perfil Personal y Académico</h4>
                     <div class="row mb-4">
                         <div class="col-md-3 mb-3">
@@ -25,110 +43,118 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="gender" class="form-label">Género</label>
-                            <select class="form-select" id="gender" name="gender">
+                            <select class="form-select" id="gender" name="gender" required>
                                 <option value="1">Masculino</option>
                                 <option value="0">Femenino</option>
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="college_tier" class="form-label">Nivel de Universidad</label>
-                            <select class="form-select" id="college_tier" name="college_tier">
-                                <option value="1">Tier 1</option>
-                                <option value="2">Tier 2</option>
-                                <option value="3">Tier 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="branch" class="form-label">Rama / Carrera</label>
-                            <select class="form-select" id="branch" name="branch" required>
-                                <option value="CSE">CSE</option>
-                                <option value="IT">IT</option>
-                                <option value="EEE">EEE</option>
-                                <option value="ECE">ECE</option>
-                                <option value="Civil">Civil</option>
-                                <option value="Mechanical">Mechanical</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="cgpa" class="form-label">Promedio (CGPA)</label>
+                            <label for="cgpa" class="form-label">CGPA (Calificación)</label>
                             <input type="number" step="0.01" class="form-control" id="cgpa" name="cgpa" required placeholder="0.0 - 10.0" min="0" max="10">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="attendance_percentage" class="form-label">% Asistencia</label>
-                            <input type="number" class="form-control" id="attendance_percentage" name="attendance_percentage" required placeholder="Ej. 85" min="0" max="100">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="backlogs" class="form-label">Materias Reprobadas</label>
-                            <input type="number" class="form-control" id="backlogs" name="backlogs" value="0" min="0">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="study_hours_per_day" class="form-label">Horas Estudio/Día</label>
-                            <input type="number" class="form-control" id="study_hours_per_day" name="study_hours_per_day" required placeholder="Ej. 4" min="0" max="24">
+                            <label for="college_tier" class="form-label">Nivel de Universidad</label>
+                            <select class="form-select" id="college_tier" name="college_tier" required>
+                                <option value="1">Tier 1 (Top)</option>
+                                <option value="2">Tier 2 (Media)</option>
+                                <option value="3" selected>Tier 3 (Estándar)</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- SECCIÓN 2: Métricas de Habilidades (Scores) -->
-                    <h4 class="section-title">Métricas de Habilidades (0 - 100)</h4>
+                    <h4 class="section-title">Especialidad y Experiencia</h4>
                     <div class="row mb-4">
                         <div class="col-md-4 mb-3">
-                            <label for="coding_skill_score" class="form-label">Puntaje Programación</label>
-                            <input type="number" class="form-control" id="coding_skill_score" name="coding_skill_score" min="0" max="100">
+                            <label for="branch" class="form-label">Rama de Ingeniería (Branch)</label>
+                            <select class="form-select" id="branch" name="branch" required>
+                                <option value="CSE">Ciencias de la Computación (CSE)</option>
+                                <option value="IT">Tecnología de la Información (IT)</option>
+                                <option value="ECE">Electrónica y Comunicaciones (ECE)</option>
+                                <option value="EEE">Ingeniería Eléctrica (EEE)</option>
+                                <option value="Mechanical">Ingeniería Mecánica</option>
+                                <option value="Civil">Ingeniería Civil</option>
+                            </select>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="aptitude_score" class="form-label">Puntaje Aptitud</label>
-                            <input type="number" class="form-control" id="aptitude_score" name="aptitude_score" required min="0" max="100">
+                            <label for="internships_count" class="form-label">Número de Pasantías</label>
+                            <input type="number" class="form-control" id="internships_count" name="internships_count" required value="0" min="0">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="communication_skill_score" class="form-label">Habilidades Comunicativas</label>
-                            <input type="number" class="form-control" id="communication_skill_score" name="communication_skill_score" required min="0" max="100">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="logical_reasoning_score" class="form-label">Razonamiento Lógico</label>
-                            <input type="number" class="form-control" id="logical_reasoning_score" name="logical_reasoning_score" required min="0" max="100">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="mock_interview_score" class="form-label">Simulacro Entrevista</label>
-                            <input type="number" class="form-control" id="mock_interview_score" name="mock_interview_score" required min="0" max="100">
-                        </div>
-                    </div>
-
-                    <!-- SECCIÓN 3: Experiencia, Proyectos y Extracurriculares -->
-                    <h4 class="section-title">Experiencia y Actividades Extra</h4>
-                    <div class="row mb-4">
-                        <div class="col-md-3 mb-3">
-                            <label for="internships_count" class="form-label">Pasantías</label>
-                            <input type="number" class="form-control" id="internships_count"  name="internships_count" value="0" min="0">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="projects_count" class="form-label">Proyectos</label>
+                            <label for="projects_count" class="form-label">Proyectos Académicos</label>
                             <input type="number" class="form-control" id="projects_count" name="projects_count" required value="0" min="0">
                         </div>
+                    </div>
+
+                    <h4 class="section-title">Competencias Técnicas e Indicadores</h4>
+                    <div class="row mb-4">
                         <div class="col-md-3 mb-3">
                             <label for="certifications_count" class="form-label">Certificaciones</label>
                             <input type="number" class="form-control" id="certifications_count" name="certifications_count" required value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="hackathons_participated" class="form-label">Hackathons</label>
-                            <input type="number" class="form-control" id="hackathons_participated" name="hackathons_participated" value="0" min="0">
+                            <label for="coding_skill_score" class="form-label">Puntaje de Código (0-100)</label>
+                            <input type="number" class="form-control" id="coding_skill_score" name="coding_skill_score" required min="0" max="100">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="github_repos" class="form-label">Repositorios GitHub</label>
+                            <label for="aptitude_score" class="form-label">Prueba de Aptitud (0-100)</label>
+                            <input type="number" class="form-control" id="aptitude_score" name="aptitude_score" required min="0" max="100">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="communication_skill_score" class="form-label">Habilidad Comunicativa (0-100)</label>
+                            <input type="number" class="form-control" id="communication_skill_score" name="communication_skill_score" required min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <label for="logical_reasoning_score" class="form-label">Razonamiento Lógico (0-100)</label>
+                            <input type="number" class="form-control" id="logical_reasoning_score" name="logical_reasoning_score" required min="0" max="100">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="hackathons_participated" class="form-label">Hackathons Participadas</label>
+                            <input type="number" class="form-control" id="hackathons_participated" name="hackathons_participated" required value="0" min="0">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="github_repos" class="form-label">Repositorios en GitHub</label>
                             <input type="number" class="form-control" id="github_repos" name="github_repos" required value="0" min="0">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="linkedin_connections" class="form-label">Contactos LinkedIn</label>
-                            <input type="number" class="form-control" id="linkedin_connections" name="linkedin_connections" placeholder="Ej. 500" min="0">
+                            <label for="linkedin_connections" class="form-label">Conexiones de LinkedIn</label>
+                            <input type="number" class="form-control" id="linkedin_connections" name="linkedin_connections" required value="0" min="0">
+                        </div>
+                    </div>
+
+                    <h4 class="section-title">Historial de Desempeño y Soft Skills</h4>
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <label for="mock_interview_score" class="form-label">Entrevista Simulada (0-100)</label>
+                            <input type="number" class="form-control" id="mock_interview_score" name="mock_interview_score" required min="0" max="100">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="extracurricular_score" class="form-label">Puntaje Extracurricular (0-100)</label>
+                            <label for="attendance_percentage" class="form-label">% de Asistencia</label>
+                            <input type="number" step="0.1" class="form-control" id="attendance_percentage" name="attendance_percentage" required placeholder="0 - 100" min="0" max="100">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="backlogs" class="form-label">Materias Reprobadas (Backlogs)</label>
+                            <input type="number" class="form-control" id="backlogs" name="backlogs" required value="0" min="0">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="study_hours_per_day" class="form-label">Horas de Estudio Diarias</label>
+                            <input type="number" step="0.1" class="form-control" id="study_hours_per_day" name="study_hours_per_day" required value="0" min="0" max="24">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <label for="extracurricular_score" class="form-label">Actividades Extracurriculares (0-100)</label>
                             <input type="number" class="form-control" id="extracurricular_score" name="extracurricular_score" required min="0" max="100">
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="leadership_score" class="form-label">Puntaje Liderazgo (0-100)</label>
                             <input type="number" class="form-control" id="leadership_score" name="leadership_score" required min="0" max="100">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="volunteer_experience" class="form-label">Voluntariado</label>
+                            <label for="volunteer_experience" class="form-label">¿Tiene Voluntariado?</label>
                             <select class="form-select" id="volunteer_experience" name="volunteer_experience" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
@@ -137,13 +163,14 @@
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Predecir</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Ejecutar Predicción Inteligente</button>
                     </div>
                 </form>
                 
                 <div id="resultSection" class="result-section alert text-center shadow-sm">
                     <h4 id="predictionStatus" class="mb-2 fw-bold"></h4>
-                    <p id="predictionSalary" class="mb-0 fs-5"></p>
+                    <p id="predictionSalary" class="mb-1 fs-5"></p>
+                    <small id="usedModelBadge" class="text-secondary d-block mt-2 font-monospace fw-bold"></small>
                 </div>
             </div>
         </div>
@@ -151,6 +178,5 @@
 </div>
 <script src="Script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
