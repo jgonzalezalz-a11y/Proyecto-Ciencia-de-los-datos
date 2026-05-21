@@ -7,8 +7,9 @@ document.getElementById('predictionForm').addEventListener('submit', function(e)
 
 function realizarPrediccion() {
 
-    // 🔹 Capturar TODOS los campos (usando los IDs correctos)
+    // 🔹 Capturar TODOS los campos incluyendo el método de machine learning seleccionado
     const data = {
+        method: document.getElementById("method").value, // Envía 'ensemble', 'mlp' o 'knn'
         age: document.getElementById("age").value,
         gender: document.getElementById("gender").value,
         cgpa: document.getElementById("cgpa").value,
@@ -42,34 +43,50 @@ function realizarPrediccion() {
         },
         body: JSON.stringify(data)
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) {
+            return res.json().then(err => { throw new Error(err.message); });
+        }
+        return res.json();
+    })
     .then(data => {
 
+        // Almacenar en caché local la última inferencia por si se requiere auditar
         ultimaPrediccion = {
+            methodUsed: data.modelo_utilizado,
             estadoFinal: data.resultado_contratacion,
-            salarioFinal: data.resultado_salario,
             fecha: new Date().toLocaleDateString()
         };
 
         const resultSection = document.getElementById('resultSection');
         const statusEl = document.getElementById('predictionStatus');
         const salaryEl = document.getElementById('predictionSalary');
+        const modelBadgeEl = document.getElementById('usedModelBadge');
 
+        // Resetear clases de Bootstrap previas para evitar acumulación de colores
+        resultSection.className = 'result-section alert text-center shadow-sm';
         resultSection.style.display = 'block';
-        resultSection.className = 'result-section alert text-center';
+
+        // Aseguramos que la etiqueta secundaria de salario/sugerencias esté completamente vacía siempre
+        if (salaryEl) {
+            salaryEl.innerText = ""; 
+        }
 
         if (data.resultado_contratacion === true) {
             resultSection.classList.add('alert-success');
             statusEl.innerText = "¡Estudiante Contratado (Placed)! 🎉";
-            salaryEl.innerText = "Salario estimado: " + data.resultado_salario;
         } else {
             resultSection.classList.add('alert-danger');
-            statusEl.innerText = "No contratado 😔";
-            salaryEl.innerText = "Mejora habilidades técnicas y experiencia.";
+            statusEl.innerText = "No Contratado (Not Placed) 😔";
+        }
+
+        // Inyectar visualmente el modelo que computó el resultado en el servidor
+        if (modelBadgeEl && data.modelo_utilizado) {
+            modelBadgeEl.innerText = "⚙️ Motor de cálculo activo: " + data.modelo_utilizado;
         }
     })
     .catch(error => {
-        console.error("Error:", error);
-        alert("El backend no está corriendo.");
+        console.error("Error operacional del Pipeline:", error);
+        alert("⚠️ Error en el sistema predictivo: " + error.message);
     });
 }
