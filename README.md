@@ -8,7 +8,7 @@ Python (Versión 3.10 o superior). Verifica con: python --version
 Pip (Gestor de paquetes de Python). Verifica con: pip --version
 Un navegador web moderno (Google Chrome, Mozilla Firefox, Microsoft Edge, etc.).
 
-##Pasos para la ejecucón
+## Pasos para la ejecucón
 
 
 ### 1. Preparación de la Carpeta Raíz
@@ -23,7 +23,7 @@ Para mantener una estructura limpia y asegurar la correcta comunicación relativ
    ```bash
    git clone <URL_DE_TU_REPOSITORIO_GITHUB> .
 
-##Paso a paso:
+## Paso a paso:
 
 Instalación de dependencias
 En la carpeta raíz del proyecto (matriz), abrir una terminal y ejecutar:
