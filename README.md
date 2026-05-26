@@ -3,12 +3,30 @@ Daniel Esteban Flórez Cobos (1000.150.507), Juan Esteban Gonzalez Alzate (1055.
 
 ## Descripción del Proyecto
 Este proyecto tiene como objetivo analizar los factores que influyen en la empleabilidad de estudiantes universitarios mediante técnicas de análisis de datos. A partir de un enfoque exploratorio, se busca identificar qué variables tienen mayor relación con la probabilidad de que un estudiante sea contratado, permitiendo entender mejor las dinámicas actuales del mercado laboral y la importancia de diferentes competencias en el proceso de selección.
+## Requisitos del sistema Antes de ejecutar el proyecto, se debe tener instalado:
+Python (Versión 3.10 o superior). Verifica con: python --version
+Pip (Gestor de paquetes de Python). Verifica con: pip --version
+Un navegador web moderno (Google Chrome, Mozilla Firefox, Microsoft Edge, etc.).
+##Pasos para la ejecucón
+Si deseas descargar el proyecto completo desde el repositorio de GitHub y ejecutarlo en Visual Studio Code, sigue estos pasos estructurados:
 
+### 1. Preparación de la Carpeta Raíz
+Para mantener una estructura limpia y asegurar la correcta comunicación relativa entre los componentes, se recomienda consolidar todo dentro de un directorio principal:
+1. Crea una carpeta vacía en tu ordenador y nómbrala **`matriz`**.
+2. Abre **Visual Studio Code**.
+3. Ve a `Archivo` > `Abrir carpeta...` (File > Open Folder...) y selecciona la carpeta **`matriz`** que acabas de crear.
+
+### 2. Clonación del Repositorio
+1. Abre una terminal integrada en Visual Studio Code (`Ctrl + Ñ` o `Terminal` > `Nueva Terminal`).
+2. Clona el repositorio de GitHub directamente dentro de tu carpeta activa ejecutando:
+   ```bash
+   git clone <URL_DE_TU_REPOSITORIO_GITHUB> .
 1. # Preprocesamiento de Datos
    1. ## Dataset:
       El conjunto de datos fue obtenido de la plataforma Kaggle y contiene 100.000 registros con 26 variables relacionadas con estudiantes universitarios. Estas variables incluyen información demográfica, académica y de desarrollo profesional, tales como edad, género, promedio académico (CGPA), número de pasantías, proyectos realizados, certificaciones, habilidades técnicas, razonamiento lógico, comunicación, entre otras. Además, se incluye una variable objetivo denominada `placement_status`, que indica si el estudiante fue colocado laboralmente o no.
 
       Para garantizar la calidad y utilidad del dataset, se llevó a cabo un proceso de preprocesamiento estructurado. Inicialmente, se realizó una exploración general para identificar tipos de datos, distribución de valores y verificar la ausencia de datos nulos, lo cual permitió confirmar la integridad del conjunto de datos. Posteriormente, se eliminaron variables consideradas irrelevantes para el análisis, como identificadores únicos y variables que no aportaban valor predictivo al objetivo del estudio.
+      
 
       A continuación, se transformaron las variables categóricas a formato numérico, utilizando codificación binaria para variables como género, experiencia en voluntariado y estado de colocación laboral. Asimismo, se aplicó una codificación ordinal para variables con jerarquía, como el nivel de la institución educativa. Para variables categóricas con múltiples categorías, se utilizó la técnica de One-Hot Encoding, generando nuevas variables binarias que permiten representar cada categoría sin introducir sesgos de orden.
 
