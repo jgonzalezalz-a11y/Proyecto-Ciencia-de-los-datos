@@ -7,8 +7,9 @@ Este proyecto tiene como objetivo analizar los factores que influyen en la emple
 Python (Versión 3.10 o superior). Verifica con: python --version
 Pip (Gestor de paquetes de Python). Verifica con: pip --version
 Un navegador web moderno (Google Chrome, Mozilla Firefox, Microsoft Edge, etc.).
+
 ##Pasos para la ejecucón
-Si deseas descargar el proyecto completo desde el repositorio de GitHub y ejecutarlo en Visual Studio Code, sigue estos pasos estructurados:
+
 
 ### 1. Preparación de la Carpeta Raíz
 Para mantener una estructura limpia y asegurar la correcta comunicación relativa entre los componentes, se recomienda consolidar todo dentro de un directorio principal:
@@ -22,7 +23,7 @@ Para mantener una estructura limpia y asegurar la correcta comunicación relativ
    ```bash
    git clone <URL_DE_TU_REPOSITORIO_GITHUB> .
 
-   Paso a paso:
+##Paso a paso:
 
 Instalación de dependencias
 En la carpeta raíz del proyecto (matriz), abrir una terminal y ejecutar:
